@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TaskList from "./TaskList";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export interface Task {
+    id: string;
+    title: string;
+    text: string;
+    completed: boolean;
 }
 
-export default App
+function App() {
+  const [currentPage, setCurrentPage] = useState<React.JSX.Element | null>(null)
+  useEffect(() => {
+    setCurrentPage(<TaskList setCurrentPage={setCurrentPage}/>);
+  }, []);
+
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          pt: 2,
+        }}
+      >
+        <Typography variant="h1" align="center" gutterBottom>
+          My React Playground
+        </Typography>
+        <ButtonGroup variant="contained" sx={{mb:2}}>
+          <Button onClick={() => setCurrentPage(<TaskList setCurrentPage={setCurrentPage}/>)}>
+            Task List 1
+          </Button>
+        </ButtonGroup>
+        {currentPage}
+      </Box>
+    </Box>
+  );
+}
+
+export default App;
