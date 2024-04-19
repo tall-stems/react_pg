@@ -7,7 +7,7 @@ export interface TasksResponse {
     "results": Task[],
 }
 
-const LOCAL_DJANGO_API = 'http://localhost:8000/api/v1';
+export const LOCAL_DJANGO_API = 'http://localhost:8000/api/v1';
 
 export async function getTasks(): Promise<TasksResponse> {
     return fetch(`${LOCAL_DJANGO_API}/notes/`).then((res) => res.json());
