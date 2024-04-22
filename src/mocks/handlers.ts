@@ -7,7 +7,7 @@ export const handlers = [
     http.get(`${LOCAL_DJANGO_API}/notes`, () => {
         // Respond with a JSON object of the tasks
         return HttpResponse.json({
-            count: 1,
+            count: 2,
             results: [
                 {
                     id: 1,

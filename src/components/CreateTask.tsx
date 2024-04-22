@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { createTask } from "./api/tasks";
+import { createTask } from "../api/tasks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import TaskDetail from "./TaskDetail";
 

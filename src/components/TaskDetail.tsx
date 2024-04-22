@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { getTask } from "./api/tasks";
+import { getTask } from "../api/tasks";
 import { Checkbox } from "@mui/material";
 
 interface TaskDetailProps {

@@ -1,23 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // import { Task } from "./App";
 // import { delay } from "./utils/utils";
-import { getTasks } from "./api/tasks";
 import { Button, Checkbox } from "@mui/material";
 import CreateTask from "./CreateTask";
 import TaskDetail from "./TaskDetail";
+import useTasksQuery from "../hooks/query-hooks/useTasksQuery";
 
 interface Props {
     setCurrentPage: (page: React.JSX.Element) => void;
 }
 
 function TaskList({ setCurrentPage }: Props) {
-    const tasksQuery = useQuery({
-        queryKey: ["tasks"],
-        queryFn: getTasks,
-        // queryFn: () => delay(1000).then(() => [...tasks]),
-    });
+    const tasksQuery = useTasksQuery();
 
     if (tasksQuery.status === "pending")
         return (
