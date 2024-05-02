@@ -1,10 +1,11 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
 import { createTask } from "../api/tasks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import TaskDetail from "./TaskDetail";
+import { FormikErrors, useFormik } from "formik";
+import { Task } from "../App";
 
 interface Props {
     setCurrentPage: (page: React.JSX.Element) => void;
@@ -12,9 +13,6 @@ interface Props {
 
 function CreateTask({ setCurrentPage }: Props) {
     const queryClient = useQueryClient();
-
-    const [text, setText] = useState("");
-    const [title, setTitle] = useState("");
 
     const createTaskMutation = useMutation({
         mutationFn: createTask,
@@ -34,43 +32,69 @@ function CreateTask({ setCurrentPage }: Props) {
         }
     });
 
-    // TODO: make this actually create an entry in react query
-    function handleClick(e: React.MouseEvent) {
-        e.preventDefault();
-        createTaskMutation.mutate({
-            title: title,
-            text: text,
-        });
+    const validate = (values: Partial<Task>) => {
+        const errors: FormikErrors<Partial<Task>> = {};
+        if (!values.title) {
+            errors.title = "Required";
+        } else if (values.title.length > 15) {
+            errors.title = "Must be 15 characters or less";
+        }
+
+        return errors;
     }
+
+    const formik = useFormik({
+        initialValues: {
+            title: "",
+            text: "",
+        },
+        validate,
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+            createTaskMutation.mutate({
+                title: values.title,
+                text: values.text,
+            });
+        },
+    });
 
     return (
         <Box
             component="form"
+            onSubmit={formik.handleSubmit}
             sx={{
                 display: "flex",
                 flexWrap: "wrap",
-                alignItems: "center",
+                alignItems: "start",
                 justifyContent: "center",
                 '& > div, & > button': {
                     m: 0.5,
                 },
+                '& > button': {
+                    mt: 1.75,
+                }
             }}
         >
             <TextField
                 id="title"
                 label="Title"
                 variant="outlined"
-                onChange={(e) => setTitle(e.target.value)}
+                {...formik.getFieldProps("title")}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title&& formik.errors.title}
             />
             <TextField
                 id="text"
                 label="Text"
                 variant="outlined"
-                onChange={(e) => setText(e.target.value)}
+                {...formik.getFieldProps("text")}
+                error={formik.touched.text && Boolean(formik.errors.text)}
+                helperText={formik.touched.text && formik.errors.text}
             />
             <Button
                 variant="contained"
-                onClick={handleClick}
+                type="submit"
+                disabled={createTaskMutation.isPending || !formik.isValid}
             >
                 Create Task
             </Button>
