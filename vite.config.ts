@@ -9,5 +9,8 @@ export default defineConfig({
         globals: true,
         setupFiles: 'src/setupTests.ts',
         environment: 'jsdom',
+        coverage: {
+            reporter: ['text', 'json', 'html'],
+        }
     }
 });
