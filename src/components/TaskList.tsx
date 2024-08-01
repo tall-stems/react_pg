@@ -45,6 +45,7 @@ function TaskList({ setCurrentPage }: Props) {
             </Box>
             {tasksQuery.data?.results?.map((task) => (
                 <Box
+                    data-testid={`task-${task.id}`}
                     key={task.id}
                     sx={{ display: "flex", alignItems: "center", mt: 2 }}
                 >
@@ -59,7 +60,7 @@ function TaskList({ setCurrentPage }: Props) {
                         </Button>
                     </Box>
                     <Box sx={{ width: "75%" }}>
-                        <p>{task.text}</p>
+                        <p data-testid={`task-${task.id}-text`}>{task.text}</p>
                     </Box>
                 </Box>
             ))}

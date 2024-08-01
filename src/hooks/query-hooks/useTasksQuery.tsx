@@ -5,6 +5,7 @@ export default function useTasksQuery(override = {}) {
     return useQuery({
         queryKey: ["tasks"],
         queryFn: getTasks,
+        staleTime: 1000 * 60 , // 1 minute
         ...override
     });
 }
