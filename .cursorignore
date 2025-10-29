@@ -1,0 +1,61 @@
+# Comments are allowed
+# Ignore dependency folders
+node_modules/
+vendor/
+bower_components/
+
+# Ignore build output
+dist/
+build/
+out/
+target/
+
+# Ignore test coverage reports
+coverage/
+.nyc_output/
+*.lcov
+
+# Ignore Cypress artifacts
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# Ignore sensitive files
+.env
+.env.docker
+.env.prod
+*.pem
+*.key
+secrets.json
+credentials.*
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore IDE/editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore cache and temp files
+.cache/
+.temp/
+.tmp/
+*.tsbuildinfo
+.eslintcache
+
+# Ignore package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnpm-store/
+
+# Ignore specific large assets if not needed for context
+assets/videos/
+large_dataset.csv
